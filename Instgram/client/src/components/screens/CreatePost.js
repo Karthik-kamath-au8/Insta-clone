@@ -2,6 +2,7 @@ import React, { useState ,useEffect} from 'react';
 import M from 'materialize-css'
 import { useHistory } from 'react-router-dom';
 
+
 const CreatePost = () =>{
     const history=useHistory()
     const [title,setTitle]=useState("")
@@ -9,7 +10,8 @@ const CreatePost = () =>{
     const [image,setImage] = useState("")
     const [url,setUrl] = useState("")
 
-    useEffect(()=>{
+
+    useEffect((body,title)=>{
         if(url){
         fetch("/createpost",{
             method:"post",
@@ -24,8 +26,8 @@ const CreatePost = () =>{
             })
         })
          .then(res=>res.json())
-        .then(data=>{
-           
+        .then(data=>
+            {
             if(data.error){
                 M.toast({html:data.error,classes:"#c62828 red darken-3"})
             }
@@ -33,11 +35,13 @@ const CreatePost = () =>{
                 M.toast({html:"Posted",classes:"#43a047 green darken-1"})
                 history.push("/")
             }
-        }).catch(err=>{
+        }
+        
+        ).catch(err=>{
             console.log(err)
         })
     }
-    },[url])
+    },[url,body,title,history])
 
     const postDetails=()=>{
         const data = new FormData()

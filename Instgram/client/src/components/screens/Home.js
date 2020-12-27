@@ -3,20 +3,40 @@ import {UserContext} from "../../App"
 
  const Home =()=>{
      const [data,setData] = useState([])
-     const {state,dispatch}=useContext(UserContext)
+     const {state,}=useContext(UserContext)
      
-    //  const {state,dispatch} = useContext(UserContext)
+
+     
+     
+    
+
      useEffect(()=>{
+        
+        
+        let isActive = true;
+
         fetch('/allpost',{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
-            }
-        }).then(res=>res.json())
-        .then(result=>{
+            },
+        })
+        .then(res=>res.json())
+        .then(result=>{         
+            if (isActive) {
             console.log(result)
             setData(result.posts)
-        })
-     },[])
+            }
+            }).catch(err=>{
+                console.log(err)
+            })
+            return () => {
+                isActive = false;
+              };
+            
+    },[])
+   
+
+
      const likePost =(id)=>{
             fetch('/like',{
                 method:"put",
@@ -93,6 +113,21 @@ import {UserContext} from "../../App"
             console.log(err)
         })
     }
+    const deletePost = (postid)=>{
+        fetch(`/deletepost/${postid}`,{
+            method:"delete",
+            headers:{
+                Authorization:"Bearer "+localStorage.getItem("jwt")
+            }
+        }).then(res=>res.json())
+        .then(result=>{
+            console.log(result)
+            const newData = data.filter(item=>{
+                return item._id !== result._id
+            })
+            setData(newData)
+        })
+    }
      return(
         <div className="home">
             {
@@ -101,7 +136,10 @@ import {UserContext} from "../../App"
                     return(
                         <div className="card home-card">  
 
-                            <h5>{item.postedBy.name}</h5>
+                            <h5>{item.postedBy.name} {item.postedBy._id === state._id 
+                            && <i className="material-icons" style={{float:"right"}} 
+                            onClick={()=>deletePost(item._id)}>delete</i>}
+                            </h5>
                             <div className="card-image">
                             <img src={item.photo} alt=""/>
                             </div>
@@ -140,6 +178,8 @@ import {UserContext} from "../../App"
                 })
             }
         </div>
-     ) 
-    }   
+     )
+   
+    }
+   
 export default Home

@@ -3,17 +3,27 @@ import {UserContext} from "../../App"
 
 const Profile =()=>{
     const [mypics,setMypics] = useState([])
-    const {state,dispatch}= useContext(UserContext)
+    const {state,}= useContext(UserContext)
+    
     useEffect(()=>{
+        let isActive = true;
         fetch("/mypost",{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt") 
             }
         }).then(res=>res.json())
         .then(result=>{
+            if (isActive) {
+           
             console.log(result)
             setMypics(result.mypost)
+            }
+            
         })
+        return () => {
+            isActive = false;
+          };
+       
     },[])
     return(
        <div style={{maxWidth:"550px", margin:"0px auto"}}>

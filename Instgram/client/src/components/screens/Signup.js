@@ -18,7 +18,7 @@ import M from 'materialize-css'
              headers:{
                  "Content-Type":"application/json"
              },
-             body:JSON.stringify({
+             body:JSON.parse({
                  name:name,
                  password:password,
                  email:email,    

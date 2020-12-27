@@ -3,8 +3,8 @@ import {Link,useHistory} from "react-router-dom";
 import M from 'materialize-css';
 import {UserContext} from "../../App"
 
- const Login =()=>{
-     const {state,dispatch}=useContext(UserContext)
+ const Signin=()=>{
+     const {dispatch}=useContext(UserContext)
     const history=useHistory()
     const [password,setPassword]=useState("")
     const [email,setEmail]=useState("")
@@ -70,4 +70,4 @@ import {UserContext} from "../../App"
      )
      
  }
- export default Login;
+ export default Signin;
