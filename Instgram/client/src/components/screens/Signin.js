@@ -20,8 +20,8 @@ import {UserContext} from "../../App"
                 "Content-Type":"application/json"
             },
             body:JSON.stringify({
-                password:password,
-                email:email,    
+                password,
+                email,    
             })
         }).then(res=>res.json())
         .then(data=>{
@@ -46,13 +46,14 @@ import {UserContext} from "../../App"
         <div className="mycard">
             <div className="card auth-card">
                 <h2>Instagram</h2>
-                <input type="text" 
+                <input 
+                type="text" 
                 placeholder="Email"
                 value={email}
                 onChange={(e)=>setEmail(e.target.value)}
-
                 />
-                <input type="password" 
+                <input
+                type="password" 
                 placeholder="Password"
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}

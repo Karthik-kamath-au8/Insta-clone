@@ -14,7 +14,7 @@ const Navbar = () =>{
                     <button className="btn #62828 red-darken-1" 
                         onClick={()=>{localStorage.clear()
                         dispatch({type:"CLEAR"})
-                        history.push("/Signin")
+                        history.push("/signin")
                         }}>
                         Logout
                     </button>
@@ -23,7 +23,7 @@ const Navbar = () =>{
             ]
         }else{
             return[
-                <li><Link to="/Signin">Signin</Link></li>,
+                <li><Link to="/signin">Signin</Link></li>,
             <li><Link to="/signup">Signup</Link></li>
 
             ]
@@ -32,7 +32,7 @@ const Navbar = () =>{
     return (
         <nav>
             <div className="nav-wrapper white" style={{color:"black"}}>
-            <Link to={state?"/":"/login"} className="brand-logo left">Instagram</Link>
+            <Link to={state?"/":"/signin"} className="brand-logo left">Instagram</Link>
             <ul id="nav-mobile" className="right">
                 {renderList()}
             {/* <li><Link to="/login">Login</Link></li>

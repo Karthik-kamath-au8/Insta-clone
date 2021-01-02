@@ -1,37 +1,26 @@
-import React,{useEffect,useState}from 'react';
-// import {UserContext} from "../../App"
+import React,{useEffect,useState,useContext}from 'react';
+import {UserContext} from "../../App"
 import {useParams} from "react-router-dom"
 
 const UserProfile =()=>{
-    const [userProfile,setUserProfile] = useState([])
-    // const {state,dispatch}= useContext(UserContext)
+    const [userProfile,setUserProfile] = useState(null)
+    const {state,dispatch}= useContext(UserContext)
     const {userid}=useParams()
     console.log(userid)
   
     useEffect(()=>{
         // eslint-disable-next-line
-        let isActive = true;
+    
         fetch(`/user/${userid}`,{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt") 
             }
-        })
-        .then(res=>res.json())
+        }).then(res=>res.json())
         .then(result=>{
-            if (isActive) {
-           
-            
             console.log(result)
             setUserProfile(result)
-            }
-            
-           
-        })
-        return () => {
-            isActive = false;
-          };
-     
-    },[userid])
+            })
+    },[])
     return(
         <>
         {userProfile ? 
@@ -51,7 +40,7 @@ const UserProfile =()=>{
                   <h4>{userProfile.user.name}</h4>
                   <h4>{userProfile.user.email}</h4>
                   <div style={{display:"flex",justifyContent:"space-around",width:"118%"}}>
-                      <h6>{UserProfile.posts.length}</h6>
+                      <h6>{userProfile.posts.length}Posts</h6>
                       <h6>40 followers</h6>
                       <h6>40 following</h6>
                   </div>

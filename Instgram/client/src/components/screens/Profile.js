@@ -38,7 +38,7 @@ const Profile =()=>{
                    src="https://images.unsplash.com/photo-1586378803006-a1914f40e036?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDIzfHRvd0paRnNrcEdnfHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"/>
 
                </div>
-               <div>
+               <div> 
                     <h4>{state?state.name:"Loading"}</h4>
                     <div style={{display:"flex",justifyContent:"space-around",width:"118%"}}>
                         <h6>40 posts</h6>

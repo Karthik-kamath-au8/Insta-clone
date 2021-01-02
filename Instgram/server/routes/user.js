@@ -7,7 +7,7 @@ const Post = mongoose.model("Post");
 const User = mongoose.model("User")
 
 router.get('/user/:id',requireLogin,(req,res)=>{
-        User.findOne({id:req.params.id})
+        User.findOne({_id:req.params.id})
         .select("-password")
         .then(user=>{
             Post.find({postedBy:req.params.id})
@@ -16,8 +16,9 @@ router.get('/user/:id',requireLogin,(req,res)=>{
                 if(err){
                     return res.status(422).json({error:err})
                 }
+                res.json({user,posts})
             })
-        }).cathc(err=>{
+        }).catch(err=>{
             return res.status(404).json({error:"user not found"})
         })
 

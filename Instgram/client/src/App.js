@@ -13,27 +13,25 @@ import Signin from './components/screens/Signin';
 
 export const UserContext = createContext()
 
-const Routing =()=>{
+const Routing = ()=>{
   const history=useHistory()
   const {dispatch}=useContext(UserContext)
   
   useEffect(()=>{
 
-    const user=JSON.parse(localStorage.getItem("User"))
+    const user=JSON.parse(localStorage.getItem("user"))
     
     if(user){
       dispatch({type:"USER",playload:user})
-      history.push("/")
+    }else{
+      history.push("/signin")
     }
-    else{
-      history.push("/Signin")
-    }
-  },[dispatch,history])
+  },[])
   return (
     <Switch>
       <Route  exact path='/' component={Home}/>
-      <Route   path='/Signin' component={Signin}/>
-      <Route  path="/Signup" component={Signup}/>
+      <Route   path='/signin' component={Signin}/>
+      <Route  path="/signup" component={Signup}/>
       <Route exact path="/profile" component={Profile}/>
       <Route  path="/create" component={CreatePost}/>
       <Route  path="/profile/:userid" component={UserProfile}/>
@@ -50,7 +48,6 @@ function App() {
     <div className="App">
       <Navbar/>
       <Routing/>
-      
     </div>
     </BrowserRouter>
     </UserContext.Provider>

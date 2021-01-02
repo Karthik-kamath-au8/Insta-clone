@@ -34,7 +34,7 @@ router.post("/signup",(req,res)=>{
                 name
             })
             user.save()
-            .then(user=>{
+            .then(res=>{
                 res.json({message:"saved successfully"})
             })
             .catch(err=>{

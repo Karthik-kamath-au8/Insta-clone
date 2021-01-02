@@ -13,7 +13,7 @@ const Post = mongoose.model("Post");
 router.get('/allpost',requireLogin,(req,res)=>{
     Post.find()
     .populate("postedBy","_id name")
-    // .populate("comments.postedBy","_id name")
+    .populate("comments.postedBy","_id name")
     .then(posts=>{
         res.json({posts})
     })
@@ -24,9 +24,9 @@ router.get('/allpost',requireLogin,(req,res)=>{
 
 router.post('/createpost',requireLogin,(req,res)=>{
 
-    const {title,body,pic} = req.body
+    const {title,body,photo} = req.body
    
-    if(!title || !body || !pic){
+    if(!title || !body || !photo){
         return res.status(422).json({error:"Please add all the fields"})
     }
 
@@ -35,7 +35,7 @@ router.post('/createpost',requireLogin,(req,res)=>{
     const post = new Post({
         title,
         body,
-        photo:pic,
+        photo:photo,
         postedBy:req.user
     })
     post.save()

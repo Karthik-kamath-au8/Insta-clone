@@ -11,7 +11,7 @@ const CreatePost = () =>{
     const [url,setUrl] = useState("")
 
 
-    useEffect((body,title)=>{
+    useEffect(()=>{
         if(url){
         fetch("/createpost",{
             method:"post",
@@ -22,7 +22,7 @@ const CreatePost = () =>{
             body:JSON.stringify({
                 title,
                 body,
-                pic:url
+                photo:url
             })
         })
          .then(res=>res.json())
@@ -41,7 +41,7 @@ const CreatePost = () =>{
             console.log(err)
         })
     }
-    },[url,body,title,history])
+    },[url])
 
     const postDetails=()=>{
         const data = new FormData()
@@ -83,7 +83,9 @@ const CreatePost = () =>{
                     <span>
                         Upload Image
                     </span>
-                    <input type="file"
+                    <input
+                     type="file"
+                     
                     onChange={(e)=>setImage(e.target.files[0])} />
                 </div>
                 <div className="file-path-wrapper">

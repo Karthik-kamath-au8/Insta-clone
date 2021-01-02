@@ -18,7 +18,7 @@ import M from 'materialize-css'
              headers:{
                  "Content-Type":"application/json"
              },
-             body:JSON.parse({
+             body:JSON.stringify({
                  name:name,
                  password:password,
                  email:email,    
@@ -41,6 +41,7 @@ import M from 'materialize-css'
         <div className="mycard">
             <div className="card auth-card">
                 <h2>Instagram</h2>
+                <form>
                 <input type="text" 
                 placeholder="Name"
                 value={name}
@@ -61,8 +62,9 @@ import M from 'materialize-css'
                     SignUp
                 </button>
                 <h5>
-                    <Link to ="/login">Already have an account?</Link>
+                    <Link to ="/sigin">Already have an account?</Link>
                 </h5>
+                </form>
                
             </div>
         </div>

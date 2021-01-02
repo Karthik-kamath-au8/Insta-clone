@@ -4,15 +4,9 @@ import {UserContext} from "../../App"
  const Home =()=>{
      const [data,setData] = useState([])
      const {state,}=useContext(UserContext)
-     
 
-     
-     
-    
 
      useEffect(()=>{
-        
-        
         let isActive = true;
 
         fetch('/allpost',{
