@@ -48,7 +48,7 @@ const CreatePost = () =>{
         data.append("file",image)
         data.append("upload_preset","insta-clone")
         data.append("cloud_name","di3spqvdb")
-        fetch("	https://api.cloudinary.com/v1_1/di3spqvdb/image/upload",{
+        fetch("https://api.cloudinary.com/v1_1/di3spqvdb/image/upload",{
             method:"post",
             body:data
         })
@@ -85,7 +85,6 @@ const CreatePost = () =>{
                     </span>
                     <input
                      type="file"
-                     
                     onChange={(e)=>setImage(e.target.files[0])} />
                 </div>
                 <div className="file-path-wrapper">

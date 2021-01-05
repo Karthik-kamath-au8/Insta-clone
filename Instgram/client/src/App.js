@@ -17,7 +17,7 @@ export const UserContext = createContext()
 
 const Routing = ()=>{
   const history=useHistory()
-  const {dispatch}=useContext(UserContext)
+  const {state,dispatch}=useContext(UserContext)
   
   useEffect(()=>{
 

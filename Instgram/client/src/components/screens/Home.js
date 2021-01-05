@@ -5,10 +5,11 @@ import {Link} from "react-router-dom"
  const Home =()=>{
      const [data,setData] = useState([])
      const {state,}=useContext(UserContext)
+     console.log(data)
+     console.log(state)
 
 
      useEffect(()=>{
-        let isActive = true;
 
         fetch('/allpost',{
             headers:{
@@ -17,16 +18,11 @@ import {Link} from "react-router-dom"
         })
         .then(res=>res.json())
         .then(result=>{         
-            if (isActive) {
             console.log(result)
             setData(result.posts)
-            }
             }).catch(err=>{
                 console.log(err)
             })
-            return () => {
-                isActive = false;
-              };
             
     },[])
    
@@ -127,10 +123,9 @@ import {Link} from "react-router-dom"
         <div className="home">
             {
                 data.map(item=>{
-                  
                     return(
                         <div className="card home-card">  
-                            <h5 style={{padding:"5px"}}><Link to={item.postedBy._id !== state._id?"/profile/"+item.postedBy._id :"/profile" }> {item.postedBy.name}</Link>{ item.postedBy._id === state._id 
+                            <h5><Link to={item.postedBy._id !== state._id?"/profile/"+item.postedBy._id :"/profile" }> {item.postedBy.name}</Link>{ item.postedBy._id === state._id 
                             && <i className="material-icons" style={{float:"right"}} 
                             onClick={()=>deletePost(item._id)}>delete</i>}
                             </h5>

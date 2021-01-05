@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {Link,useHistory} from "react-router-dom";
 import M from 'materialize-css'
 
@@ -7,36 +7,77 @@ import M from 'materialize-css'
      const [name,setName]=useState("")
      const [password,setPassword]=useState("")
      const [email,setEmail]=useState("")
-     const PostData = () =>{
-         // eslint-disable-next-line
-         if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+     const [image,setImage] = useState("")
+     const [url,setUrl]=useState(undefined)
+
+
+     useEffect(()=>{
+         if(url){
+            uploadFields()
+         }
+     },[url])
+
+
+     const uploadPic = () =>{
+        const data = new FormData()
+        data.append("file",image)
+        data.append("upload_preset","insta-clone")
+        data.append("cloud_name","di3spqvdb")
+        fetch("https://api.cloudinary.com/v1_1/di3spqvdb/image/upload",{
+            method:"post",
+            body:data
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            setUrl(data.url)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+       
+    }
+    const uploadFields = () => {
+         if(!/^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
             M.toast({html:"Inavlid Email",classes:"#c62828 red draken-3"})
             return
          }
          fetch("/signup",{
              method:"post",
              headers:{
-                 "Content-Type":"application/json"
+                 "Content-Type":"application/json",
              },
              body:JSON.stringify({
-                 name:name,
-                 password:password,
-                 email:email,    
+                 name,
+                 password,
+                 email, 
+                 photo:url 
              })
          }).then(res=>res.json())
          .then(data=>{
+             console.log(data)
              if(data.error){
                  M.toast({html:data.error,classes:"#c62828 red draken-3"})
 
              }
              else{
                  M.toast({html:data.message,classes:"#43a047 green draken-2"})
-                 history.push("/login")
+                 history.push("/signin")
              }
          }).catch(err=>{
              console.log(err)
          })
+
+    }
+    const postData = () => {
+         if(image){
+            uploadPic()
+         }
+         else{
+            uploadFields()
+         }
      }
+    
+   
      return(
         <div className="mycard">
             <div className="card auth-card">
@@ -52,13 +93,28 @@ import M from 'materialize-css'
                 value={email}
                 onChange={(e)=>setEmail(e.target.value)}
                 />
-                <input type="password" 
+                <input 
+                type="password" 
                 placeholder="Password"
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}
                 />
+                <div className="file-field input-field">
+                <div className="btn #64b5f6 blue darken-1">
+                    <span>
+                        Upload Pic
+                    </span>
+                    <input
+                    type="file"
+                    onChange={(e)=>setImage(e.target.files[0])} />
+                </div>
+                <div className="file-path-wrapper">
+                    <input className="file-path validate" type="text"/> 
+                </div>  
+
+            </div>
                 <button className="btn waves-effect waves-light #64b5f6 blue darken-1" 
-                onClick={()=>PostData()}>
+                onClick={()=>postData()}>
                     SignUp
                 </button>
                 <h5>

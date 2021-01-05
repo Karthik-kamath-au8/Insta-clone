@@ -4,10 +4,11 @@ import {useParams} from "react-router-dom"
 
 const UserProfile =()=>{
     const [userProfile,setUserProfile] = useState(null)
-    const [showfollow,setShowFollow] = useState(true)
+    
     const {state,dispatch}= useContext(UserContext)
+
     const {userid}=useParams()
-    console.log(userid)
+    const [showfollow,setShowFollow] = useState(state?!state.following.includes(userid):true)
   
     useEffect(()=>{
         // eslint-disable-next-line
@@ -91,7 +92,7 @@ const UserProfile =()=>{
          }}>
             <div>
                  <img style={{width:"160px", height:"160px",borderRadius:"80px"}} alt=""
-                 src="https://images.unsplash.com/photo-1586378803006-a1914f40e036?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDIzfHRvd0paRnNrcEdnfHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"/>
+                 src={userProfile.user.photo}/>
 
                 </div>
                 <div>

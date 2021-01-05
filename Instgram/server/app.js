@@ -12,7 +12,7 @@ const {MONGOURI}= require('./keys');
 
 mongoose.connect(MONGOURI,{ useNewUrlParser: true , useUnifiedTopology: true } )
 mongoose.connection.on("connected",()=>{
-    console.log("coonected to mongo db")
+    console.log("connected to mongo db")
 })
 mongoose.connection.on("error",(err)=>{
     console.log("err connecting",err)
