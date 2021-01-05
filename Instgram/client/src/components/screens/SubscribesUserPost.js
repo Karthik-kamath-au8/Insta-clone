@@ -2,7 +2,7 @@ import React,{useState,useEffect,useContext} from 'react';
 import {UserContext} from "../../App";
 import {Link} from "react-router-dom"
 
- const Home =()=>{
+ const SubscribesUserPost =()=>{
      const [data,setData] = useState([])
      const {state,}=useContext(UserContext)
 
@@ -10,7 +10,7 @@ import {Link} from "react-router-dom"
      useEffect(()=>{
         let isActive = true;
 
-        fetch('/allpost',{
+        fetch('/getsubpost',{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
             },
@@ -175,4 +175,4 @@ import {Link} from "react-router-dom"
    
     }
    
-export default Home
+export default SubscribesUserPost
