@@ -62,7 +62,7 @@ import M from 'materialize-css'
                     SignUp
                 </button>
                 <h5>
-                    <Link to ="/sigin">Already have an account?</Link>
+                    <Link to ="/signin">Already have an account?</Link>
                 </h5>
                 </form>
                

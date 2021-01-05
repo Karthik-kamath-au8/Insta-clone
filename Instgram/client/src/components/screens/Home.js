@@ -1,5 +1,6 @@
 import React,{useState,useEffect,useContext} from 'react';
-import {UserContext} from "../../App"
+import {UserContext} from "../../App";
+import {Link} from "react-router-dom"
 
  const Home =()=>{
      const [data,setData] = useState([])
@@ -129,8 +130,7 @@ import {UserContext} from "../../App"
                   
                     return(
                         <div className="card home-card">  
-
-                            <h5>{item.postedBy.name} {item.postedBy._id === state._id 
+                            <h5><Link to={item.postedBy._id !== state._id?"/profile/"+item.postedBy._id :"/profile" }> {item.postedBy.name}</Link>{ item.postedBy._id === state._id 
                             && <i className="material-icons" style={{float:"right"}} 
                             onClick={()=>deletePost(item._id)}>delete</i>}
                             </h5>
@@ -145,7 +145,6 @@ import {UserContext} from "../../App"
                              :
                             <i className="material-icons" onClick={()=>{likePost(item._id)}}>thumb_up</i>
                             }
-                            
                             <h6>{item.likes.length}Likes</h6>
                             <h6>{item.title}</h6>
                             <p>{item.body}</p>

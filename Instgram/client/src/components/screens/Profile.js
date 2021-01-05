@@ -3,7 +3,8 @@ import {UserContext} from "../../App"
 
 const Profile =()=>{
     const [mypics,setMypics] = useState([])
-    const {state,}= useContext(UserContext)
+    const {state,dispatch}= useContext(UserContext)
+    console.log(state)
     
     useEffect(()=>{
         let isActive = true;
@@ -41,9 +42,9 @@ const Profile =()=>{
                <div> 
                     <h4>{state?state.name:"Loading"}</h4>
                     <div style={{display:"flex",justifyContent:"space-around",width:"118%"}}>
-                        <h6>40 posts</h6>
-                        <h6>40 followers</h6>
-                        <h6>40 following</h6>
+                        <h6>{mypics.length} posts</h6>
+                        <h6>{state?state.followers.length:"0"} followers</h6>
+                        <h6>{state?state.following.length:"0"} following</h6>
                     </div>
                </div>
            </div>
