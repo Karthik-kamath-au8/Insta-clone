@@ -18,7 +18,7 @@ router.get('/protected',requireLogin,(req,res)=>{
 })
 router.post("/signup",(req,res)=>{
     const{name,email,password,photo}=req.body
-    if(!email || !password || !name){
+    if(!email || !password || !name || !photo){
         return res.status(422).json({error:"please fill all the fields"})
     }
     User.findOne({email:email})

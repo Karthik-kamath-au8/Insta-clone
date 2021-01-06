@@ -8,7 +8,7 @@ import M from 'materialize-css'
      const [password,setPassword]=useState("")
      const [email,setEmail]=useState("")
      const [image,setImage] = useState("")
-     const [url,setUrl]=useState(undefined)
+     const [url,setUrl]=useState("")
 
 
      useEffect(()=>{
@@ -68,7 +68,7 @@ import M from 'materialize-css'
          })
 
     }
-    const postData = () => {
+    const PostData = () => {
          if(image){
             uploadPic()
          }
@@ -82,7 +82,7 @@ import M from 'materialize-css'
         <div className="mycard">
             <div className="card auth-card">
                 <h2>Instagram</h2>
-                <form>
+                <form onSubmit={(e)=>(e.preventDefault())}>
                 <input type="text" 
                 placeholder="Name"
                 value={name}
@@ -102,7 +102,7 @@ import M from 'materialize-css'
                 <div className="file-field input-field">
                 <div className="btn #64b5f6 blue darken-1">
                     <span>
-                        Upload Pic
+                        Upload Photo
                     </span>
                     <input
                     type="file"
@@ -114,7 +114,7 @@ import M from 'materialize-css'
 
             </div>
                 <button className="btn waves-effect waves-light #64b5f6 blue darken-1" 
-                onClick={()=>postData()}>
+                onClick={()=>PostData()}>
                     SignUp
                 </button>
                 <h5>
