@@ -4,12 +4,12 @@ const mongoose = require('mongoose')
 const User = mongoose.model("User")
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken')
-const {JWT_SECRET}= require('../keys');
+const {JWT_SECRET}= require('../config/keys');
 const requireLogin = require("../middleware/requireLogin")
 
-router.get('/',(req,res)=>{
-    res.send("hey")
-})
+// router.get('/',(req,res)=>{
+//     res.send("hey")
+// })
 
 
 router.get('/protected',requireLogin,(req,res)=>{
@@ -17,8 +17,8 @@ router.get('/protected',requireLogin,(req,res)=>{
 
 })
 router.post("/signup",(req,res)=>{
-    const{name,email,password,photo}=req.body
-    if(!email || !password || !name || !photo){
+    const{name,email,password}=req.body
+    if(!email || !password || !name){
         return res.status(422).json({error:"please fill all the fields"})
     }
     User.findOne({email:email})

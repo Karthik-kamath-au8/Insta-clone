@@ -57,7 +57,6 @@ import M from 'materialize-css'
              console.log(data)
              if(data.error){
                  M.toast({html:data.error,classes:"#c62828 red draken-3"})
-
              }
              else{
                  M.toast({html:data.message,classes:"#43a047 green draken-2"})
