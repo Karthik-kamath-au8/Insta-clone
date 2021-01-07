@@ -8,7 +8,7 @@ import M from 'materialize-css'
      const [password,setPassword]=useState("")
      const [email,setEmail]=useState("")
      const [image,setImage] = useState("")
-     const [url,setUrl]=useState("")
+     const [url,setUrl]=useState(undefined)
 
 
      useEffect(()=>{
@@ -54,7 +54,6 @@ import M from 'materialize-css'
              })
          }).then(res=>res.json())
          .then(data=>{
-             console.log(data)
              if(data.error){
                  M.toast({html:data.error,classes:"#c62828 red draken-3"})
              }
